@@ -7,6 +7,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/createremotethread.dir/MemoryReader.cpp.obj"
   "CMakeFiles/createremotethread.dir/CPed.cpp.obj"
   "CMakeFiles/createremotethread.dir/CVehicle.cpp.obj"
+  "CMakeFiles/createremotethread.dir/ASMBuilder.cpp.obj"
   "createremotethread.pdb"
   "createremotethread.exe"
   "createremotethread.exe.manifest"

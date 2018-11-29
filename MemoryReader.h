@@ -7,15 +7,15 @@ protected:
     explicit MemoryReader(int location);
 
     template<typename T>
-    T GetValue(int offset);
+    T Value(int offset);
 
-    int GetIntValue(int offset);
+    int Int(int offset);
 
-    void SetIntValue(int offset, int value);
+    void Int(int offset, int value);
 
-    float GetFloatValue(int offset);
+    float Float(int offset);
 
-    void SetFloatValue(int offset, float value);
+    void Float(int offset, float value);
 public:
     int location;
 };

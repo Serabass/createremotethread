@@ -7,7 +7,7 @@ MemoryReader::MemoryReader(int location) {
 }
 
 template<typename T>
-T MemoryReader::GetValue(int offset) {
+T MemoryReader::Value(int offset) {
     auto health = new AllocationInfo();
     health->AllocatedBaseAddress = (LPVOID) (location + offset);
     health->AllocatedSize = 4;
@@ -18,7 +18,7 @@ T MemoryReader::GetValue(int offset) {
 }
 
 
-int MemoryReader::GetIntValue(int offset) {
+int MemoryReader::Int(int offset) {
     auto health = new AllocationInfo();
     health->AllocatedBaseAddress = (LPVOID) (location + offset);
     health->AllocatedSize = 4;
@@ -28,7 +28,7 @@ int MemoryReader::GetIntValue(int offset) {
     return value;
 }
 
-void MemoryReader::SetIntValue(int offset, int value) {
+void MemoryReader::Int(int offset, int value) {
     auto health = new AllocationInfo();
     health->AllocatedBaseAddress = (LPVOID) (location + offset);
     health->AllocatedSize = 4;
@@ -36,7 +36,7 @@ void MemoryReader::SetIntValue(int offset, int value) {
     VC::Instance()->injector->Write(health, &value, &b);
 }
 
-float MemoryReader::GetFloatValue(int offset) {
+float MemoryReader::Float(int offset) {
     auto health = new AllocationInfo();
     health->AllocatedBaseAddress = (LPVOID) (location + offset);
     health->AllocatedSize = 4;
@@ -46,7 +46,7 @@ float MemoryReader::GetFloatValue(int offset) {
     return value;
 }
 
-void MemoryReader::SetFloatValue(int offset, float value) {
+void MemoryReader::Float(int offset, float value) {
     auto health = new AllocationInfo();
     health->AllocatedBaseAddress = (LPVOID) (location + offset);
     health->AllocatedSize = 4;

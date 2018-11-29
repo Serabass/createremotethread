@@ -22,7 +22,7 @@ CPed** CPlayer::GetNearestPeds() {
     std::vector<CPed*> result;
 
     for (int i = 0; i < 10; i++) {
-        int pointer = this->GetIntValue(0x56C + (4 * i));
+        int pointer = this->Int(0x56C + (4 * i));
         result.push_back(new CPed(pointer));
     }
 

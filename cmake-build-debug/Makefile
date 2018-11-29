@@ -135,6 +135,33 @@ createremotethread/fast:
 	$(MAKE) -f CMakeFiles\createremotethread.dir\build.make CMakeFiles/createremotethread.dir/build
 .PHONY : createremotethread/fast
 
+ASMBuilder.obj: ASMBuilder.cpp.obj
+
+.PHONY : ASMBuilder.obj
+
+# target to build an object file
+ASMBuilder.cpp.obj:
+	$(MAKE) -f CMakeFiles\createremotethread.dir\build.make CMakeFiles/createremotethread.dir/ASMBuilder.cpp.obj
+.PHONY : ASMBuilder.cpp.obj
+
+ASMBuilder.i: ASMBuilder.cpp.i
+
+.PHONY : ASMBuilder.i
+
+# target to preprocess a source file
+ASMBuilder.cpp.i:
+	$(MAKE) -f CMakeFiles\createremotethread.dir\build.make CMakeFiles/createremotethread.dir/ASMBuilder.cpp.i
+.PHONY : ASMBuilder.cpp.i
+
+ASMBuilder.s: ASMBuilder.cpp.s
+
+.PHONY : ASMBuilder.s
+
+# target to generate assembly for a file
+ASMBuilder.cpp.s:
+	$(MAKE) -f CMakeFiles\createremotethread.dir\build.make CMakeFiles/createremotethread.dir/ASMBuilder.cpp.s
+.PHONY : ASMBuilder.cpp.s
+
 CPed.obj: CPed.cpp.obj
 
 .PHONY : CPed.obj
@@ -388,6 +415,9 @@ help:
 	@echo ... createremotethread
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... ASMBuilder.obj
+	@echo ... ASMBuilder.i
+	@echo ... ASMBuilder.s
 	@echo ... CPed.obj
 	@echo ... CPed.i
 	@echo ... CPed.s

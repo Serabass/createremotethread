@@ -6,12 +6,14 @@
 #define CREATEREMOTETHREAD_CPED_H
 
 #include "MemoryReader.h"
+#include "macros.h"
 
 class CPed : public MemoryReader {
 public:
     explicit CPed(int location);
 
-    float GetHealth();
+    DEFAULT_PROP_H(float, Health)
+    DEFAULT_PROP_H(float, Armor)
 };
 
 #endif //CREATEREMOTETHREAD_CPED_H

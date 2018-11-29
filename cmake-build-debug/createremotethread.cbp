@@ -122,6 +122,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/Serabass/CLionProjects/createremotethread/ASMBuilder.cpp">
+			<Option target="createremotethread"/>
+		</Unit>
+		<Unit filename="C:/Users/Serabass/CLionProjects/createremotethread/ASMBuilder.h">
+			<Option target="createremotethread"/>
+		</Unit>
 		<Unit filename="C:/Users/Serabass/CLionProjects/createremotethread/CPed.cpp">
 			<Option target="createremotethread"/>
 		</Unit>
@@ -166,6 +172,9 @@
 		</Unit>
 		<Unit filename="C:/Users/Serabass/CLionProjects/createremotethread/dll.cpp">
 			<Option target="dll"/>
+		</Unit>
+		<Unit filename="C:/Users/Serabass/CLionProjects/createremotethread/macros.h">
+			<Option target="createremotethread"/>
 		</Unit>
 		<Unit filename="C:/Users/Serabass/CLionProjects/createremotethread/main.cpp">
 			<Option target="createremotethread"/>

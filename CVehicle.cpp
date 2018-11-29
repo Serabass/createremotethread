@@ -5,12 +5,13 @@
 #include "CVehicle.h"
 #include "Injector.h"
 #include "VC.h"
+#include "ASMBuilder.h"
 
 CVehicle::CVehicle(int location) : MemoryReader(location) {
 }
 
 int CVehicle::GetModelIndex() {
-    return this->GetIntValue(0x5C);
+    return this->Int(0x5C);
 }
 
 void CVehicle::BlowUp() {
@@ -30,6 +31,15 @@ void CVehicle::BlowUp() {
             0xE8, instr[0], instr[1], instr[2], instr[3],             // call   FN
             0xC3,                                                     // ret
     };
+
+    BYTE *getVehicle2 = ASMBuilder::factory()
+            ->movECXValue(location)              // mov    ecx, addr
+            ->movEDIDwordPtrEcx()                // mov    edi,DWORD PTR [ecx]
+            ->pushByte(0)                        // push 0
+            ->relativeCall(instruction)          // call   FN
+            ->retn()                             // ret
+            ->build();
+
     injector->InjectAsm(mem, getVehicle);
     injector->Free(mem);
 }

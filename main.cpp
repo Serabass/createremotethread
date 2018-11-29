@@ -13,6 +13,7 @@ int main() {
             auto ve = VC::Instance()->SpawnVehicle(206);
             Sleep(1500);
             ve->BlowUp();
+            Sleep(1500);
         }
 
         if (GetKeyState(VK_CONTROL) < 0) {
