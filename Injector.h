@@ -3,6 +3,7 @@
 #define CREATEREMOTETHREAD_INJECTOR_H
 
 #include <windows.h>
+#include "AllicationInfo.h"
 
 #pragma pack(push, 8)
 
@@ -10,18 +11,9 @@
 
 #pragma pack(pop)
 
-struct AllocationInfo {
-    LPVOID AllocatedBaseAddress;
-    SIZE_T AllocatedSize;
-
-    int calculateOffset(int step, int fn);
-};
-
 class Injector {
 private:
     HANDLE hProcess;
-    LPVOID AllocatedBaseAddress;
-    SIZE_T AllocatedSize;
 
 public:
     DWORD processId;

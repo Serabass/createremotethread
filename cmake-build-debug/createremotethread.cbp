@@ -128,6 +128,12 @@
 		<Unit filename="C:/Users/Serabass/CLionProjects/createremotethread/ASMBuilder.h">
 			<Option target="createremotethread"/>
 		</Unit>
+		<Unit filename="C:/Users/Serabass/CLionProjects/createremotethread/AllicationInfo.h">
+			<Option target="createremotethread"/>
+		</Unit>
+		<Unit filename="C:/Users/Serabass/CLionProjects/createremotethread/AllocationInfo.cpp">
+			<Option target="createremotethread"/>
+		</Unit>
 		<Unit filename="C:/Users/Serabass/CLionProjects/createremotethread/CPed.cpp">
 			<Option target="createremotethread"/>
 		</Unit>

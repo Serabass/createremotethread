@@ -7,8 +7,7 @@
 #include <tchar.h>
 
 void printError(TCHAR *msg) {
-    DWORD
-            eNum;
+    DWORD eNum;
     TCHAR sysMsg[256];
     TCHAR *p;
 
@@ -28,10 +27,6 @@ void printError(TCHAR *msg) {
 
     // Display the message
     _tprintf(TEXT("\n  WARNING: %s failed with error %d (%s)"), msg, eNum, sysMsg);
-}
-
-int AllocationInfo::calculateOffset(int step, int fn) {
-    return -(((unsigned int) this->AllocatedBaseAddress + step) - fn) - 5;
 }
 
 Injector::Injector(DWORD pid) {

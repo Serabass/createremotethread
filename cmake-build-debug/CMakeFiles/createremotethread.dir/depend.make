@@ -4,11 +4,15 @@
 CMakeFiles/createremotethread.dir/ASMBuilder.cpp.obj: ../ASMBuilder.cpp
 CMakeFiles/createremotethread.dir/ASMBuilder.cpp.obj: ../ASMBuilder.h
 
+CMakeFiles/createremotethread.dir/AllocationInfo.cpp.obj: ../AllicationInfo.h
+CMakeFiles/createremotethread.dir/AllocationInfo.cpp.obj: ../AllocationInfo.cpp
+
 CMakeFiles/createremotethread.dir/CPed.cpp.obj: ../CPed.cpp
 CMakeFiles/createremotethread.dir/CPed.cpp.obj: ../CPed.h
 CMakeFiles/createremotethread.dir/CPed.cpp.obj: ../MemoryReader.h
 CMakeFiles/createremotethread.dir/CPed.cpp.obj: ../macros.h
 
+CMakeFiles/createremotethread.dir/CPlayer.cpp.obj: ../AllicationInfo.h
 CMakeFiles/createremotethread.dir/CPlayer.cpp.obj: ../CPed.h
 CMakeFiles/createremotethread.dir/CPlayer.cpp.obj: ../CPlayer.cpp
 CMakeFiles/createremotethread.dir/CPlayer.cpp.obj: ../CPlayer.h
@@ -19,27 +23,32 @@ CMakeFiles/createremotethread.dir/CPlayer.cpp.obj: ../VC.h
 CMakeFiles/createremotethread.dir/CPlayer.cpp.obj: ../macros.h
 
 CMakeFiles/createremotethread.dir/CVehicle.cpp.obj: ../ASMBuilder.h
+CMakeFiles/createremotethread.dir/CVehicle.cpp.obj: ../AllicationInfo.h
 CMakeFiles/createremotethread.dir/CVehicle.cpp.obj: ../CVehicle.cpp
 CMakeFiles/createremotethread.dir/CVehicle.cpp.obj: ../CVehicle.h
 CMakeFiles/createremotethread.dir/CVehicle.cpp.obj: ../Injector.h
 CMakeFiles/createremotethread.dir/CVehicle.cpp.obj: ../MemoryReader.h
 CMakeFiles/createremotethread.dir/CVehicle.cpp.obj: ../VC.h
 
+CMakeFiles/createremotethread.dir/Injector.cpp.obj: ../AllicationInfo.h
 CMakeFiles/createremotethread.dir/Injector.cpp.obj: ../Injector.cpp
 CMakeFiles/createremotethread.dir/Injector.cpp.obj: ../Injector.h
 
+CMakeFiles/createremotethread.dir/MemoryReader.cpp.obj: ../AllicationInfo.h
 CMakeFiles/createremotethread.dir/MemoryReader.cpp.obj: ../CVehicle.h
 CMakeFiles/createremotethread.dir/MemoryReader.cpp.obj: ../Injector.h
 CMakeFiles/createremotethread.dir/MemoryReader.cpp.obj: ../MemoryReader.cpp
 CMakeFiles/createremotethread.dir/MemoryReader.cpp.obj: ../MemoryReader.h
 CMakeFiles/createremotethread.dir/MemoryReader.cpp.obj: ../VC.h
 
+CMakeFiles/createremotethread.dir/VC.cpp.obj: ../AllicationInfo.h
 CMakeFiles/createremotethread.dir/VC.cpp.obj: ../CVehicle.h
 CMakeFiles/createremotethread.dir/VC.cpp.obj: ../Injector.h
 CMakeFiles/createremotethread.dir/VC.cpp.obj: ../MemoryReader.h
 CMakeFiles/createremotethread.dir/VC.cpp.obj: ../VC.cpp
 CMakeFiles/createremotethread.dir/VC.cpp.obj: ../VC.h
 
+CMakeFiles/createremotethread.dir/VCMethod.cpp.obj: ../AllicationInfo.h
 CMakeFiles/createremotethread.dir/VCMethod.cpp.obj: ../CVehicle.h
 CMakeFiles/createremotethread.dir/VCMethod.cpp.obj: ../Injector.h
 CMakeFiles/createremotethread.dir/VCMethod.cpp.obj: ../MemoryReader.h
@@ -47,6 +56,7 @@ CMakeFiles/createremotethread.dir/VCMethod.cpp.obj: ../VC.h
 CMakeFiles/createremotethread.dir/VCMethod.cpp.obj: ../VCMethod.cpp
 CMakeFiles/createremotethread.dir/VCMethod.cpp.obj: ../VCMethod.h
 
+CMakeFiles/createremotethread.dir/main.cpp.obj: ../AllicationInfo.h
 CMakeFiles/createremotethread.dir/main.cpp.obj: ../CPed.h
 CMakeFiles/createremotethread.dir/main.cpp.obj: ../CPlayer.h
 CMakeFiles/createremotethread.dir/main.cpp.obj: ../CVehicle.h

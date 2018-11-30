@@ -70,7 +70,7 @@ CMAKE_BINARY_DIR = C:\Users\Serabass\CLionProjects\createremotethread\cmake-buil
 CMakeFiles/dll.dir/all:
 	$(MAKE) -f CMakeFiles\dll.dir\build.make CMakeFiles/dll.dir/depend
 	$(MAKE) -f CMakeFiles\dll.dir\build.make CMakeFiles/dll.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\Serabass\CLionProjects\createremotethread\cmake-build-debug\CMakeFiles --progress-num=11,12 "Built target dll"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\Serabass\CLionProjects\createremotethread\cmake-build-debug\CMakeFiles --progress-num=12,13 "Built target dll"
 .PHONY : CMakeFiles/dll.dir/all
 
 # Include target in all.
@@ -107,7 +107,7 @@ clean: CMakeFiles/dll.dir/clean
 CMakeFiles/createremotethread.dir/all:
 	$(MAKE) -f CMakeFiles\createremotethread.dir\build.make CMakeFiles/createremotethread.dir/depend
 	$(MAKE) -f CMakeFiles\createremotethread.dir\build.make CMakeFiles/createremotethread.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\Serabass\CLionProjects\createremotethread\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target createremotethread"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\Serabass\CLionProjects\createremotethread\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11 "Built target createremotethread"
 .PHONY : CMakeFiles/createremotethread.dir/all
 
 # Include target in all.
@@ -117,7 +117,7 @@ all: CMakeFiles/createremotethread.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/createremotethread.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Serabass\CLionProjects\createremotethread\cmake-build-debug\CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Serabass\CLionProjects\createremotethread\cmake-build-debug\CMakeFiles 11
 	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/createremotethread.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Serabass\CLionProjects\createremotethread\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/createremotethread.dir/rule

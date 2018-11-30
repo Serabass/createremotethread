@@ -4,12 +4,16 @@
 CMakeFiles/createremotethread.dir/ASMBuilder.cpp.obj
  C:/Users/Serabass/CLionProjects/createremotethread/ASMBuilder.cpp
  C:/Users/Serabass/CLionProjects/createremotethread/ASMBuilder.h
+CMakeFiles/createremotethread.dir/AllocationInfo.cpp.obj
+ C:/Users/Serabass/CLionProjects/createremotethread/AllicationInfo.h
+ C:/Users/Serabass/CLionProjects/createremotethread/AllocationInfo.cpp
 CMakeFiles/createremotethread.dir/CPed.cpp.obj
  C:/Users/Serabass/CLionProjects/createremotethread/CPed.cpp
  C:/Users/Serabass/CLionProjects/createremotethread/CPed.h
  C:/Users/Serabass/CLionProjects/createremotethread/MemoryReader.h
  C:/Users/Serabass/CLionProjects/createremotethread/macros.h
 CMakeFiles/createremotethread.dir/CPlayer.cpp.obj
+ C:/Users/Serabass/CLionProjects/createremotethread/AllicationInfo.h
  C:/Users/Serabass/CLionProjects/createremotethread/CPed.h
  C:/Users/Serabass/CLionProjects/createremotethread/CPlayer.cpp
  C:/Users/Serabass/CLionProjects/createremotethread/CPlayer.h
@@ -20,27 +24,32 @@ CMakeFiles/createremotethread.dir/CPlayer.cpp.obj
  C:/Users/Serabass/CLionProjects/createremotethread/macros.h
 CMakeFiles/createremotethread.dir/CVehicle.cpp.obj
  C:/Users/Serabass/CLionProjects/createremotethread/ASMBuilder.h
+ C:/Users/Serabass/CLionProjects/createremotethread/AllicationInfo.h
  C:/Users/Serabass/CLionProjects/createremotethread/CVehicle.cpp
  C:/Users/Serabass/CLionProjects/createremotethread/CVehicle.h
  C:/Users/Serabass/CLionProjects/createremotethread/Injector.h
  C:/Users/Serabass/CLionProjects/createremotethread/MemoryReader.h
  C:/Users/Serabass/CLionProjects/createremotethread/VC.h
 CMakeFiles/createremotethread.dir/Injector.cpp.obj
+ C:/Users/Serabass/CLionProjects/createremotethread/AllicationInfo.h
  C:/Users/Serabass/CLionProjects/createremotethread/Injector.cpp
  C:/Users/Serabass/CLionProjects/createremotethread/Injector.h
 CMakeFiles/createremotethread.dir/MemoryReader.cpp.obj
+ C:/Users/Serabass/CLionProjects/createremotethread/AllicationInfo.h
  C:/Users/Serabass/CLionProjects/createremotethread/CVehicle.h
  C:/Users/Serabass/CLionProjects/createremotethread/Injector.h
  C:/Users/Serabass/CLionProjects/createremotethread/MemoryReader.cpp
  C:/Users/Serabass/CLionProjects/createremotethread/MemoryReader.h
  C:/Users/Serabass/CLionProjects/createremotethread/VC.h
 CMakeFiles/createremotethread.dir/VC.cpp.obj
+ C:/Users/Serabass/CLionProjects/createremotethread/AllicationInfo.h
  C:/Users/Serabass/CLionProjects/createremotethread/CVehicle.h
  C:/Users/Serabass/CLionProjects/createremotethread/Injector.h
  C:/Users/Serabass/CLionProjects/createremotethread/MemoryReader.h
  C:/Users/Serabass/CLionProjects/createremotethread/VC.cpp
  C:/Users/Serabass/CLionProjects/createremotethread/VC.h
 CMakeFiles/createremotethread.dir/VCMethod.cpp.obj
+ C:/Users/Serabass/CLionProjects/createremotethread/AllicationInfo.h
  C:/Users/Serabass/CLionProjects/createremotethread/CVehicle.h
  C:/Users/Serabass/CLionProjects/createremotethread/Injector.h
  C:/Users/Serabass/CLionProjects/createremotethread/MemoryReader.h
@@ -48,6 +57,7 @@ CMakeFiles/createremotethread.dir/VCMethod.cpp.obj
  C:/Users/Serabass/CLionProjects/createremotethread/VCMethod.cpp
  C:/Users/Serabass/CLionProjects/createremotethread/VCMethod.h
 CMakeFiles/createremotethread.dir/main.cpp.obj
+ C:/Users/Serabass/CLionProjects/createremotethread/AllicationInfo.h
  C:/Users/Serabass/CLionProjects/createremotethread/CPed.h
  C:/Users/Serabass/CLionProjects/createremotethread/CPlayer.h
  C:/Users/Serabass/CLionProjects/createremotethread/CVehicle.h

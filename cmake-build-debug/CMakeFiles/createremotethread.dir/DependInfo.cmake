@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/Serabass/CLionProjects/createremotethread/ASMBuilder.cpp" "C:/Users/Serabass/CLionProjects/createremotethread/cmake-build-debug/CMakeFiles/createremotethread.dir/ASMBuilder.cpp.obj"
+  "C:/Users/Serabass/CLionProjects/createremotethread/AllocationInfo.cpp" "C:/Users/Serabass/CLionProjects/createremotethread/cmake-build-debug/CMakeFiles/createremotethread.dir/AllocationInfo.cpp.obj"
   "C:/Users/Serabass/CLionProjects/createremotethread/CPed.cpp" "C:/Users/Serabass/CLionProjects/createremotethread/cmake-build-debug/CMakeFiles/createremotethread.dir/CPed.cpp.obj"
   "C:/Users/Serabass/CLionProjects/createremotethread/CPlayer.cpp" "C:/Users/Serabass/CLionProjects/createremotethread/cmake-build-debug/CMakeFiles/createremotethread.dir/CPlayer.cpp.obj"
   "C:/Users/Serabass/CLionProjects/createremotethread/CVehicle.cpp" "C:/Users/Serabass/CLionProjects/createremotethread/cmake-build-debug/CMakeFiles/createremotethread.dir/CVehicle.cpp.obj"

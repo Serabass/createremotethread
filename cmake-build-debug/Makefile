@@ -162,6 +162,33 @@ ASMBuilder.cpp.s:
 	$(MAKE) -f CMakeFiles\createremotethread.dir\build.make CMakeFiles/createremotethread.dir/ASMBuilder.cpp.s
 .PHONY : ASMBuilder.cpp.s
 
+AllocationInfo.obj: AllocationInfo.cpp.obj
+
+.PHONY : AllocationInfo.obj
+
+# target to build an object file
+AllocationInfo.cpp.obj:
+	$(MAKE) -f CMakeFiles\createremotethread.dir\build.make CMakeFiles/createremotethread.dir/AllocationInfo.cpp.obj
+.PHONY : AllocationInfo.cpp.obj
+
+AllocationInfo.i: AllocationInfo.cpp.i
+
+.PHONY : AllocationInfo.i
+
+# target to preprocess a source file
+AllocationInfo.cpp.i:
+	$(MAKE) -f CMakeFiles\createremotethread.dir\build.make CMakeFiles/createremotethread.dir/AllocationInfo.cpp.i
+.PHONY : AllocationInfo.cpp.i
+
+AllocationInfo.s: AllocationInfo.cpp.s
+
+.PHONY : AllocationInfo.s
+
+# target to generate assembly for a file
+AllocationInfo.cpp.s:
+	$(MAKE) -f CMakeFiles\createremotethread.dir\build.make CMakeFiles/createremotethread.dir/AllocationInfo.cpp.s
+.PHONY : AllocationInfo.cpp.s
+
 CPed.obj: CPed.cpp.obj
 
 .PHONY : CPed.obj
@@ -418,6 +445,9 @@ help:
 	@echo ... ASMBuilder.obj
 	@echo ... ASMBuilder.i
 	@echo ... ASMBuilder.s
+	@echo ... AllocationInfo.obj
+	@echo ... AllocationInfo.i
+	@echo ... AllocationInfo.s
 	@echo ... CPed.obj
 	@echo ... CPed.i
 	@echo ... CPed.s

@@ -107,7 +107,7 @@ void VC::GetVehicle(int vehicleId) {
     injector->Free(ret);
 }
 
-int VC::GetPlayer() {
+int VC::GetPlayerPointer() {
     const int count = 25;
     int getPlayerFn = 0x4BC120;
     AllocationInfo *mem = injector->Alloc(count);

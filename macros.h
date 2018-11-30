@@ -10,7 +10,16 @@
 
 typedef float Float;
 
-#define DEFAULT_PROP(C, T, t, M, O) t C::M() { DEFAULT_GETTER(T, O); } void C::M(t value) { DEFAULT_SETTER(T, O); }
-#define DEFAULT_PROP_H(T, N)  T N(); void N(T value);
+#define DEFAULT_PROP(CLASS, TYPE, type, METHOD, OFFSET) \
+    type CLASS::METHOD() { \
+        DEFAULT_GETTER(TYPE, OFFSET); \
+    } \
+    void CLASS::METHOD(type value) { \
+        DEFAULT_SETTER(TYPE, OFFSET); \
+    }
+
+#define DEFAULT_PROP_H(TYPE, METHOD) \
+    TYPE METHOD(); \
+    void METHOD(TYPE value);
 
 #endif //CREATEREMOTETHREAD_MACROS_H

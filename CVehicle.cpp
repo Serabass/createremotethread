@@ -32,14 +32,6 @@ void CVehicle::BlowUp() {
             0xC3,                                                     // ret
     };
 
-    BYTE *getVehicle2 = ASMBuilder::factory()
-            ->movECXValue(location)              // mov    ecx, addr
-            ->movEDIDwordPtrEcx()                // mov    edi,DWORD PTR [ecx]
-            ->pushByte(0)                        // push 0
-            ->relativeCall(instruction)          // call   FN
-            ->retn()                             // ret
-            ->build();
-
     injector->InjectAsm(mem, getVehicle);
     injector->Free(mem);
 }

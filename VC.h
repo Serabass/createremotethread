@@ -2,11 +2,12 @@
 // Created by Serabass on 29.11.2018.
 //
 
-#include "Injector.h"
-#include "CVehicle.h"
 
 #ifndef CREATEREMOTETHREAD_VC_H
 #define CREATEREMOTETHREAD_VC_H
+
+#include "Injector.h"
+#include "CVehicle.h"
 
 class VC {
 private:
@@ -28,7 +29,7 @@ public:
 
     void GetVehicle(int vehicleId);
 
-    int GetPlayer();
+    int GetPlayerPointer();
 
     void BlowUpVehicle(int addr);
 };

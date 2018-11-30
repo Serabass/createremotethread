@@ -10,7 +10,7 @@ CPlayer *CPlayer::singleton = nullptr;
 
 CPlayer *CPlayer::Instance() {
     if (!singleton) {
-        singleton = new CPlayer(VC::Instance()->GetPlayer());
+        singleton = new CPlayer(VC::Instance()->GetPlayerPointer());
     }
     return singleton;
 }
