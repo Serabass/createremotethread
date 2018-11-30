@@ -212,7 +212,7 @@ Injector *Injector::InjectAsm(AllocationInfo *mem, BYTE *data) {
     }
 
     if (remoteThread != INVALID_HANDLE_VALUE)
-        WaitForSingleObject(remoteThread, 10000);
+        WaitForSingleObject(remoteThread, INFINITE);
 
     return this;
 }

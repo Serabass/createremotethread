@@ -6,12 +6,14 @@
 #define CREATEREMOTETHREAD_CVEHICLE_H
 
 #include "MemoryReader.h"
+#include "macros.h"
 
 class CVehicle : public MemoryReader {
 public:
     explicit CVehicle(int location);
-    int GetModelIndex();
     void BlowUp();
+
+    DEFAULT_PROP_H(BYTE, ModelIndex);
 };
 
 #endif //CREATEREMOTETHREAD_CVEHICLE_H

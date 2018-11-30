@@ -1,4 +1,0 @@
-C:/Users/Serabass/CLionProjects/createremotethread/cmake-build-debug/CMakeFiles/dll.dir
-C:/Users/Serabass/CLionProjects/createremotethread/cmake-build-debug/CMakeFiles/createremotethread.dir
-C:/Users/Serabass/CLionProjects/createremotethread/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Serabass/CLionProjects/createremotethread/cmake-build-debug/CMakeFiles/rebuild_cache.dir

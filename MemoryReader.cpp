@@ -36,6 +36,24 @@ void MemoryReader::Int(int offset, int value) {
     VC::Instance()->injector->Write(health, &value, &b);
 }
 
+BYTE MemoryReader::Byte(int offset) {
+    auto health = new AllocationInfo();
+    health->AllocatedBaseAddress = (LPVOID) (location + offset);
+    health->AllocatedSize = 1;
+    BYTE value;
+    SIZE_T b;
+    VC::Instance()->injector->Read(health, &value, &b);
+    return value;
+}
+
+void MemoryReader::Byte(int offset, BYTE value) {
+    auto health = new AllocationInfo();
+    health->AllocatedBaseAddress = (LPVOID) (location + offset);
+    health->AllocatedSize = 1;
+    SIZE_T b;
+    VC::Instance()->injector->Write(health, &value, &b);
+}
+
 float MemoryReader::Float(int offset) {
     auto health = new AllocationInfo();
     health->AllocatedBaseAddress = (LPVOID) (location + offset);

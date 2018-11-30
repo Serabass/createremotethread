@@ -10,10 +10,10 @@ int main() {
     while (true) {
         Sleep(500);
         if (GetKeyState(VK_F9) < 0) {
-            auto ve = VC::Instance()->SpawnVehicle(206);
-            Sleep(1500);
-            ve->BlowUp();
-            Sleep(1500);
+            auto v = VC::Instance()->SpawnVehicle(200);
+            Sleep(2000);
+
+            v->BlowUp();
         }
 
         if (GetKeyState(VK_CONTROL) < 0) {

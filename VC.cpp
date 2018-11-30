@@ -153,6 +153,50 @@ void VC::BlowUpVehicle(int addr) {
     injector->InjectAsm(mem, getVehicle);
     injector->Free(mem);
 }
+
+int VC::Money() {
+    auto *mem = new AllocationInfo();
+    mem->AllocatedBaseAddress = (LPVOID)0x0094ADC8;
+    mem->AllocatedSize = 4;
+    int result;
+    injector->Read(mem, &result, nullptr);
+    return result;
+}
+
+void VC::Money(int value) {
+    auto *mem = new AllocationInfo();
+    mem->AllocatedBaseAddress = (LPVOID)0x0094ADC8;
+    mem->AllocatedSize = 4;
+    injector->Write(mem, &value, nullptr);
+}
+
+void VC::AddMoney(int value) {
+    int current = Money();
+    current += value;
+    Money(current);
+}
+
 void VC::Close() {
     injector->Close();
+}
+
+void VC::Sandbox() {
+    auto *mem = new AllocationInfo();
+    mem->AllocatedBaseAddress = (LPVOID)0xA0FDE4;
+    mem->AllocatedSize = 4;
+
+    int i;
+
+    do {
+        injector->Read(mem, &i, nullptr);
+
+        if (i != 0 && i != -1) {
+            int l;
+            mem->AllocatedBaseAddress = (LPVOID)i;
+            injector->Read(mem, &l, nullptr);
+            auto v = new CVehicle(l);
+            v->BlowUp();
+            Sleep(1500);
+        }
+    } while (i != 0 && i != -1);
 }

@@ -32,6 +32,11 @@ public:
     int GetPlayerPointer();
 
     void BlowUpVehicle(int addr);
+    void AddMoney(int value);
+    void Money(int value);
+    int Money();
+
+    void Sandbox();
 };
 
 #endif //CREATEREMOTETHREAD_VC_H

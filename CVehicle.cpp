@@ -10,10 +10,6 @@
 CVehicle::CVehicle(int location) : MemoryReader(location) {
 }
 
-int CVehicle::GetModelIndex() {
-    return this->Int(0x5C);
-}
-
 void CVehicle::BlowUp() {
     auto injector = VC::Instance()->injector;
     const int count = 15;
@@ -25,7 +21,7 @@ void CVehicle::BlowUp() {
     memcpy(&instr[0], &instruction, 4);
     memcpy(&add[0], &location, 4);
     BYTE getVehicle[count] = {
-            0xB9, add[0], add[1], add[2], add[3],                     // mov    ecx, addr
+            0xB9, add[0], add[1], add[2], add[3],                     // mov    ecx, location
             0x8B, 0x39,                                               // mov    edi,DWORD PTR [ecx]
             0x6A, 0x00,                                               // push 0
             0xE8, instr[0], instr[1], instr[2], instr[3],             // call   FN
@@ -35,3 +31,5 @@ void CVehicle::BlowUp() {
     injector->InjectAsm(mem, getVehicle);
     injector->Free(mem);
 }
+
+DEFAULT_PROP(CVehicle, Byte, BYTE, ModelIndex, 0x5C)

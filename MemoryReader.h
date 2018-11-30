@@ -1,6 +1,8 @@
 #ifndef CREATEREMOTETHREAD_MEMORYREADER_H
 #define CREATEREMOTETHREAD_MEMORYREADER_H
 
+#include <windows.h>
+
 class MemoryReader {
 protected:
 
@@ -12,6 +14,10 @@ protected:
     int Int(int offset);
 
     void Int(int offset, int value);
+
+    BYTE Byte(int offset);
+
+    void Byte(int offset, BYTE value);
 
     float Float(int offset);
 
