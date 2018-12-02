@@ -3,24 +3,17 @@
 #include "VC.h"
 #include "VCMethod.h"
 #include "CPlayer.h"
+#include "ASMBuilder.h"
+#include "Buffer.h"
+#include "AllicationInfo.h"
+#include <vector>
 
 int main() {
     VC::Instance()->Open();
-
-    while (true) {
-        Sleep(500);
-        if (GetKeyState(VK_F9) < 0) {
-            auto v = VC::Instance()->SpawnVehicle(200);
-            Sleep(2000);
-
-            v->BlowUp();
-        }
-
-        if (GetKeyState(VK_CONTROL) < 0) {
-            break;
-        }
-    }
+    // auto v = VC::Instance()->GetPlayerPointer();
+    VC::Instance()->SpawnVehicle(206);
     VC::Instance()->Close();
+
     return 0;
 }
 

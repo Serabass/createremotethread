@@ -44,8 +44,6 @@ public:
 
     Injector *InjectDLL(wchar_t *dllPath);
 
-    Injector *InjectAsmSandbox();
-
     Injector *InjectAsm(AllocationInfo *mem, BYTE *data);
 };
 

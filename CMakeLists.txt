@@ -4,5 +4,5 @@ project(createremotethread)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_GENERATOR_PLATFORM x86)
 
-add_executable(createremotethread main.cpp Injector.cpp Injector.h VC.cpp VC.h VCMethod.cpp VCMethod.h CPlayer.h CPlayer.cpp MemoryReader.cpp MemoryReader.h CPed.cpp CPed.h CVehicle.cpp CVehicle.h ASMBuilder.cpp ASMBuilder.h macros.h AllicationInfo.h AllocationInfo.cpp)
+add_executable(createremotethread main.cpp Injector.cpp Injector.h VC.cpp VC.h VCMethod.cpp VCMethod.h CPlayer.h CPlayer.cpp MemoryReader.cpp MemoryReader.h CPed.cpp CPed.h CVehicle.cpp CVehicle.h ASMBuilder.cpp ASMBuilder.h macros.h AllicationInfo.h AllocationInfo.cpp Buffer.cpp Buffer.h)
 # add_library(dll SHARED dll.cpp)

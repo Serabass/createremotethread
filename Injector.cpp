@@ -36,7 +36,6 @@ Injector::Injector(DWORD pid) {
 Injector *Injector::FromExecName(LPCSTR execName) {
     HANDLE hProcessSnap;
     PROCESSENTRY32 pe32 = {0};
-    DWORD processId = -1;
 
     hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
     if (hProcessSnap == INVALID_HANDLE_VALUE)
@@ -51,7 +50,7 @@ Injector *Injector::FromExecName(LPCSTR execName) {
 
     do {
         if (!lstrcmp(execName, pe32.szExeFile)) {
-            processId = pe32.th32ProcessID;
+            DWORD processId = pe32.th32ProcessID;
             CloseHandle(hProcessSnap);
             return new Injector(processId);
         }
@@ -114,7 +113,6 @@ Injector *Injector::Open() {
 
 // TODO Implement Protection Method
 AllocationInfo *Injector::Alloc(SIZE_T size) {
-    LPVOID BaseAddress;
     auto pInfo = new AllocationInfo();
     auto baseAddress = (LPVOID) VirtualAllocEx(hProcess, nullptr, size, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
     auto x = ERROR_INVALID_ADDRESS;
@@ -218,6 +216,7 @@ Injector *Injector::InjectAsm(AllocationInfo *mem, BYTE *data) {
 }
 
 #define COUNT 12
+/*
 
 Injector *Injector::InjectAsmSandbox() {
     BYTE x[12] = {
@@ -231,7 +230,7 @@ Injector *Injector::InjectAsmSandbox() {
     int instruction = -(((unsigned int) mem->AllocatedBaseAddress + 5) - spawnVehicleFn) - 5;
     memcpy(&instr[0], &instruction, 4);
     BYTE spawnVehicle[COUNT] = {
-            0x68, 0xCE, 0x00, 0x00, 0x00,                    // push 04
+            0x68, 0xCE, 0x00, 0x00, 0x00,                  // push 04
             0xE8, instr[0], instr[1], instr[2], instr[3],  // call FN
             0x59,                                          // pop ecx
             0xC3                                           // ret
@@ -244,11 +243,14 @@ Injector *Injector::InjectAsmSandbox() {
     };
     SIZE_T bytesWritten;
     Write(mem, &spawnVehicle, &bytesWritten);
-    /*
+    */
+/*
      WriteProcessMemory(hProcess, mem->AllocatedBaseAddress, x, mem->AllocatedSize, bytesWritten);
      Write(mem, &x, &bytesWritten);
      ;
      */
+/*
+
     DWORD threadID;
     HANDLE remoteThread = CreateRemoteThread(hProcess, nullptr, 0, (LPTHREAD_START_ROUTINE) mem->AllocatedBaseAddress,
                                              mem->AllocatedBaseAddress, 0, &threadID);
@@ -265,6 +267,7 @@ Injector *Injector::InjectAsmSandbox() {
     return this;
 
 }
+*/
 
 Injector *Injector::Close() {
     CloseHandle(hProcess);
