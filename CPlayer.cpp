@@ -19,13 +19,14 @@ CPlayer *CPlayer::Instance() {
 CPlayer::CPlayer(int location) : CPed(location + 0x0) {
 }
 
-CPed** CPlayer::GetNearestPeds() {
+std::vector<CPed*> CPlayer::GetNearestPeds() {
     std::vector<CPed*> result;
 
-    for (int i = 0; i < 10; i++) {
+    int count = this->Word(0x594);
+    for (int i = 0; i < count; i++) {
         int pointer = this->Int(0x56C + (4 * i));
         result.push_back(new CPed(pointer));
     }
 
-    return &result[0];
+    return result;
 }

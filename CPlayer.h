@@ -8,6 +8,7 @@
 #include "VC.h"
 #include "MemoryReader.h"
 #include "CPed.h"
+#include <vector>
 
 class CPlayer : public CPed {
 public:
@@ -17,7 +18,7 @@ public:
 
     explicit CPlayer(int location);
 
-    CPed** GetNearestPeds();
+    std::vector<CPed*> GetNearestPeds();
 };
 
 

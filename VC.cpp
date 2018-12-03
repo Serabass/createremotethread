@@ -5,8 +5,6 @@
 #include "VC.h"
 #include "MemoryReader.h"
 #include "ASMBuilder.h"
-#include "Buffer.h"
-#include "Injector.h"
 
 VC::VC() {
     injector = Injector::FromExecName("gta-vc.exe");
@@ -27,25 +25,27 @@ void VC::Open() {
                    PROCESS_VM_OPERATION);
 }
 
+ASMBuffer *VC::createBuffer() {
+    return new ASMBuffer(injector);
+}
+
 CVehicle *VC::SpawnVehicle(int modelIndex) {
     int spawnVehicleFn = 0x4AE8F0;
-    AllocationInfo *ret = injector->Alloc(4);
-    auto result = (int) ret->AllocatedBaseAddress;
+    AllocationInfo *resultAlloc = injector->Alloc(4);
+    auto result = (int) resultAlloc->address;
 
-    (new Buffer(injector))
-            ->pushInt32(modelIndex)                    // push modelIndex
-            ->relativeCall(spawnVehicleFn)             // call spawnVehicleFn
-            ->uInt8(0x89)->uInt8(0x0D)->int32(result)  // mov DWORD PTR ds:ret
-            ->uInt8(0x59)                              // pop ecx
-            ->uInt8(0xC3)                              // ret
-            ->inject()
-            ;
+    auto buffer = createBuffer();
+    buffer->push(modelIndex);                         // push modelIndex
+    buffer->relativeCall(spawnVehicleFn);             // call spawnVehicleFn
+    buffer->uInt8(0x89)->uInt8(0x0D)->int32(result);  // mov DWORD PTR ds:result
+    buffer->pop(REGISTER::ECX);                       // pop ecx
+    buffer->ret();                                    // ret
+    buffer->inject();
 
     int address;
-    SIZE_T b;
 
-    injector->Read(ret, &address, &b);
-    injector->Free(ret);
+    injector->Read(resultAlloc, &address);
+    injector->Free(resultAlloc);
 
     return new CVehicle(address);
 }
@@ -61,121 +61,95 @@ std::string hexStr(BYTE *data, int len) {
 }
 
 void VC::SetWeather(int weatherId) {
-    const int count = 12;
     int setWeatherFn = 0x57D550;
-    AllocationInfo *mem = injector->Alloc(count);
-    BYTE instr[4] = {0x00, 0x00, 0x00, 0x00};
-    BYTE weather[4] = {0x00, 0x00, 0x00, 0x00};
-    int instruction = mem->calculateOffset(5, setWeatherFn);
-    memcpy(&instr[0], &instruction, 4);
-    memcpy(&weather[0], &weatherId, 4);
-    BYTE setWeather[] = {
-            0x68, weather[0], weather[1], weather[2], weather[3],   // push weatherId
-            0xE8, instr[0], instr[1], instr[2], instr[3],           // call FN
-            0x59,                                                   // pop ecx
-            0xC3                                                    // ret
-    };
-    injector->InjectAsm(mem, setWeather);
-    injector->Free(mem);
+    auto buffer = createBuffer();
+    buffer->push(weatherId);             // push weatherId
+    buffer->relativeCall(setWeatherFn);  // call setWeatherFn
+    buffer->uInt8(0x59);                 // pop ecx
+    buffer->uInt8(0xC3);                 // ret
+    buffer->inject();
+}
+
+void VC::GetText(int a1, char a2) {
+    AllocationInfo *ret = injector->Alloc(4);
+
+    int GetTextFN = 0x584F30;
+    auto buffer = createBuffer();
+    buffer->push((uint8_t) 0x00);          // push    0
+    buffer->push((uint8_t) 0x01);          // push    1
+    buffer->push(0x68F1E8);
+    buffer->relativeCall(GetTextFN);
+    buffer->uInt8(0xB8)->int32((int) ret->address);
+    buffer->uInt8(0xC3);
+    buffer->inject();
 }
 
 void VC::GetVehicle(int vehicleId) {
-    const int count = 25;
     int vehiclePool = 0xA0FDE4;
     int getVehicleFn = 0x451C70;
-    AllocationInfo *mem = injector->Alloc(count);
     AllocationInfo *ret = injector->Alloc(4);
-    BYTE instr[4] = {0x00, 0x00, 0x00, 0x00};
-    BYTE vehicle[4] = {0x00, 0x00, 0x00, 0x00};
-    BYTE retAr[4] = {0x00, 0x00, 0x00, 0x00};
-    int instruction = mem->calculateOffset(12, getVehicleFn);
-    memcpy(&instr[0], &instruction, 4);
-    memcpy(&vehicle[0], &vehicleId, 4);
-    int baseAddr = (int) ret->AllocatedBaseAddress;
-    memcpy(&retAr[0], &baseAddr, 4);
 
-    BYTE getVehicle[] = {
-            0xB8, vehicle[0], vehicle[1], vehicle[2], vehicle[3],     // mov    eax, vehicleId
-            0x8B, 0x0D, 0xE4, 0xFD, 0xA0, 0x00,                       // mov    ecx, vehiclePool
-            0x50,                                                     // push   eax
-            0xE8, instr[0], instr[1], instr[2], instr[3],             // call   FN
-            0x59,                                                     // pop ecx
-            0x89, 0x0D, retAr[0], retAr[1], retAr[2], retAr[3],       // mov    DWORD PTR ds:retArray,ecx
-            0xC3,                                                     // ret
-    };
-    injector->InjectAsm(mem, getVehicle);
+    auto buffer = createBuffer();
+    buffer->mov(REGISTER::EAX, vehicleId);                                     // mov    eax, vehicleId
+    buffer->mov(REGISTER::ECX, vehiclePool);                                   // mov    ecx, vehiclePool
+    buffer->push(REGISTER::EAX);                                               // push   eax
+    buffer->relativeCall(getVehicleFn);                                        // call   FN
+    buffer->pop(REGISTER::ECX);                                                // pop    ecx
+    buffer->uInt8(0x89)->uInt8(0x0D)->int32((int) ret->address);               // mov    DWORD PTR ds:retAddr,ecx
+    buffer->ret();                                                             // ret
+    buffer->inject();
 
     int result;
-    SIZE_T b;
-
-    injector->Read(ret, &result, &b);
-    injector->Free(mem);
+    SIZE_T b = injector->Read(ret, &result);
     injector->Free(ret);
 }
 
 int VC::GetPlayerPointer() {
-    const int count = 25;
     int getPlayerFn = 0x4BC120;
-    AllocationInfo *mem = injector->Alloc(count);
     AllocationInfo *ret = injector->Alloc(4);
-    BYTE instr[4] = {0x00, 0x00, 0x00, 0x00};
-    BYTE retAr[4] = {0x00, 0x00, 0x00, 0x00};
-    int instruction = mem->calculateOffset(0, getPlayerFn);
-    memcpy(&instr[0], &instruction, 4);
-    int baseAddr = (int) ret->AllocatedBaseAddress;
-    memcpy(&retAr[0], &baseAddr, 4);
 
-    BYTE getVehicle[] = {
-            0xE8, instr[0], instr[1], instr[2], instr[3],             // call   FN
-            0xA3, retAr[0], retAr[1], retAr[2], retAr[3],             // mov    DWORD PTR ds:retArray,eax
-            0xC3,                                                     // ret
-    };
-    injector->InjectAsm(mem, getVehicle);
+    auto buffer = createBuffer();
+    buffer->relativeCall(getPlayerFn);
+    buffer->uInt8(0xA3)->int32((int) ret->address);
+    buffer->ret();
+    buffer->inject();
 
     int result;
-    SIZE_T b;
-
-    injector->Read(ret, &result, &b);
-    injector->Free(mem);
+    SIZE_T b = injector->Read(ret, &result);
     injector->Free(ret);
     return result;
 }
 
 void VC::BlowUpVehicle(int addr) {
-    const int count = 15;
-    int getVehicleFn = 0x588A60;
-    AllocationInfo *mem = injector->Alloc(count);
-    BYTE instr[4] = {0x00, 0x00, 0x00, 0x00};
-    BYTE add[4] = {0x00, 0x00, 0x00, 0x00};
-    int instruction = mem->calculateOffset(10, getVehicleFn);
-    memcpy(&instr[0], &instruction, 4);
-    memcpy(&add[0], &addr, 4);
+    int blowUpVehicle = 0x588A60;
 
-    BYTE getVehicle[] = {
-            0xB9, add[0], add[1], add[2], add[3],                     // mov    ecx, addr
-            0x8B, 0x39,                                               // mov    edi,DWORD PTR [ecx]
-            0x6A, 0x00,                                               // push 0
-            0xE8, instr[0], instr[1], instr[2], instr[3],             // call   FN
-            0xC3,                                                     // ret
-    };
-    injector->InjectAsm(mem, getVehicle);
-    injector->Free(mem);
+    auto buffer = createBuffer();
+    buffer->uInt8(0xB9)->int32(addr);                   // mov    ecx, addr
+    buffer->uInt8(0x8B)->uInt8(0x39);                   // mov    edi,DWORD PTR [ecx]
+    buffer->push((uint8_t)0x00);                        // push 0
+    buffer->relativeCall(blowUpVehicle);                 // call   FN
+    buffer->ret();                                      // ret
+    buffer->inject();
+}
+
+void VC::BlowUpVehicle(CVehicle* v) {
+    BlowUpVehicle(v->location);
 }
 
 int VC::Money() {
     auto *mem = new AllocationInfo();
-    mem->AllocatedBaseAddress = (LPVOID) 0x0094ADC8;
-    mem->AllocatedSize = 4;
+    mem->address = (LPVOID) 0x0094ADC8;
+    mem->size = 4;
     int result;
-    injector->Read(mem, &result, nullptr);
+    injector->Read(mem, &result);
     return result;
 }
 
 void VC::Money(int value) {
     auto *mem = new AllocationInfo();
-    mem->AllocatedBaseAddress = (LPVOID) 0x0094ADC8;
-    mem->AllocatedSize = 4;
-    injector->Write(mem, &value, nullptr);
+    mem->address = (LPVOID) 0x0094ADC8;
+    mem->size = 4;
+    injector->Write(mem, &value);
 }
 
 void VC::AddMoney(int value) {

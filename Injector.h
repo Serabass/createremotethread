@@ -36,9 +36,9 @@ public:
 
     AllocationInfo *Alloc(SIZE_T Size);
 
-    SIZE_T *Write(AllocationInfo *mem, void *data, SIZE_T *bytesWritten);
+    SIZE_T Write(AllocationInfo *mem, void *data);
 
-    SIZE_T *Read(AllocationInfo *mem, void *data, SIZE_T *bytesToRead);
+    SIZE_T Read(AllocationInfo *mem, void *data);
 
     Injector *Free(AllocationInfo *info);
 

@@ -8,12 +8,25 @@
 #include "AllicationInfo.h"
 #include <vector>
 
+#define KEY_PRESSED(K) GetKeyState(K) < 0
+
 int main() {
     VC::Instance()->Open();
     // auto v = VC::Instance()->GetPlayerPointer();
-    VC::Instance()->SpawnVehicle(206);
-    VC::Instance()->Close();
+    while (true) {
+        Sleep(500);
+        if (KEY_PRESSED(VK_CONTROL)) {
+            break;
+        }
 
+        if (KEY_PRESSED(VK_F9)) {
+            auto v = VC::Instance()->SpawnVehicle(206);
+            Sleep(2000);
+            VC::Instance()->BlowUpVehicle(v);
+        }
+
+    }
+    VC::Instance()->Close();
     return 0;
 }
 

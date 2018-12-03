@@ -15,6 +15,10 @@ protected:
 
     void Int(int offset, int value);
 
+    WORD Word(int offset);
+
+    void Word(int offset, WORD value);
+
     BYTE Byte(int offset);
 
     void Byte(int offset, BYTE value);

@@ -8,8 +8,8 @@
 #include <windows.h>
 
 struct AllocationInfo {
-    LPVOID AllocatedBaseAddress;
-    SIZE_T AllocatedSize;
+    LPVOID address;
+    SIZE_T size;
 
     int calculateOffset(int step, int fn);
 };

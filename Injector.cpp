@@ -122,13 +122,13 @@ AllocationInfo *Injector::Alloc(SIZE_T size) {
         throw ("VirtualAllocEx");
     }
 
-    pInfo->AllocatedBaseAddress = baseAddress;
-    pInfo->AllocatedSize = size;
+    pInfo->address = baseAddress;
+    pInfo->size = size;
     return pInfo;
 }
 
 Injector *Injector::Free(AllocationInfo *info) {
-    if (!VirtualFreeEx(hProcess, info->AllocatedBaseAddress, 0, MEM_RELEASE)) {
+    if (!VirtualFreeEx(hProcess, info->address, 0, MEM_RELEASE)) {
         auto e = GetLastError();
         printf("VirtualFreeEx: %d\n", e);
         // throw "123213";
@@ -136,20 +136,22 @@ Injector *Injector::Free(AllocationInfo *info) {
     return this;
 }
 
-SIZE_T *Injector::Write(AllocationInfo *mem, void *data, SIZE_T *bytesWritten) {
-    if (0 == WriteProcessMemory(hProcess, mem->AllocatedBaseAddress, data, mem->AllocatedSize, bytesWritten)) {
+SIZE_T Injector::Write(AllocationInfo *mem, void *data) {
+    SIZE_T bytes;
+    if (0 == WriteProcessMemory(hProcess, mem->address, data, mem->size, &bytes)) {
         printf("Could not WriteProcessMemory");
         throw L"Could not WriteProcessMemory";
     }
-    return bytesWritten;
+    return bytes;
 }
 
-SIZE_T *Injector::Read(AllocationInfo *mem, void *data, SIZE_T *bytesWritten) {
-    if (0 == ReadProcessMemory(hProcess, mem->AllocatedBaseAddress, data, mem->AllocatedSize, bytesWritten)) {
+SIZE_T Injector::Read(AllocationInfo *mem, void *data) {
+    SIZE_T bytes;
+    if (0 == ReadProcessMemory(hProcess, mem->address, data, mem->size, &bytes)) {
         printf("Could not ReadProcessMemory");
         throw L"Could not ReadProcessMemory";
     }
-    return bytesWritten;
+    return bytes;
 }
 
 Injector *Injector::InjectDLL(wchar_t *dllPath) {
@@ -158,7 +160,7 @@ Injector *Injector::InjectDLL(wchar_t *dllPath) {
     AllocationInfo *mem = Alloc(dllNameLength);
 
     try {
-        Write(mem, (LPVOID) dllPath, &bytesWritten);
+        bytesWritten = Write(mem, (LPVOID) dllPath);
     } catch (EXCEPINFO e) {
         printf("WriteProcessMemory error");
         std::cout << "WriteProcessMemory error\n";
@@ -175,7 +177,7 @@ Injector *Injector::InjectDLL(wchar_t *dllPath) {
     DWORD threadID;
     auto ldrLibW = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryW");
     HANDLE remoteThread = CreateRemoteThread(hProcess, nullptr, 0, (LPTHREAD_START_ROUTINE) ldrLibW,
-                                             mem->AllocatedBaseAddress, 0, &threadID);
+                                             mem->address, 0, &threadID);
 
     if (remoteThread == NULL) {
         auto err = GetLastError();
@@ -192,16 +194,15 @@ Injector *Injector::InjectDLL(wchar_t *dllPath) {
 }
 
 Injector *Injector::InjectAsm(AllocationInfo *mem, BYTE *data) {
-    SIZE_T bytesWritten;
-    Write(mem, data, &bytesWritten);
+    SIZE_T bytesWritten = Write(mem, data);
     /*
-     WriteProcessMemory(hProcess, mem->AllocatedBaseAddress, x, mem->AllocatedSize, bytesWritten);
+     WriteProcessMemory(hProcess, mem->address, x, mem->size, bytesWritten);
      Write(mem, &x, &bytesWritten);
      ;
      */
     DWORD threadID;
-    HANDLE remoteThread = CreateRemoteThread(hProcess, nullptr, 0, (LPTHREAD_START_ROUTINE) mem->AllocatedBaseAddress,
-                                             mem->AllocatedBaseAddress, 0, &threadID);
+    HANDLE remoteThread = CreateRemoteThread(hProcess, nullptr, 0, (LPTHREAD_START_ROUTINE) mem->address,
+                                             mem->address, 0, &threadID);
 
     if (remoteThread == nullptr) {
         auto err = GetLastError();
@@ -227,7 +228,7 @@ Injector *Injector::InjectAsmSandbox() {
     int spawnVehicleFn = 0x4AE8F0;
     AllocationInfo *mem = Alloc(COUNT);
     BYTE instr[4] = {0x00, 0x00, 0x00, 0x00};
-    int instruction = -(((unsigned int) mem->AllocatedBaseAddress + 5) - spawnVehicleFn) - 5;
+    int instruction = -(((unsigned int) mem->address + 5) - spawnVehicleFn) - 5;
     memcpy(&instr[0], &instruction, 4);
     BYTE spawnVehicle[COUNT] = {
             0x68, 0xCE, 0x00, 0x00, 0x00,                  // push 04
@@ -245,15 +246,15 @@ Injector *Injector::InjectAsmSandbox() {
     Write(mem, &spawnVehicle, &bytesWritten);
     */
 /*
-     WriteProcessMemory(hProcess, mem->AllocatedBaseAddress, x, mem->AllocatedSize, bytesWritten);
+     WriteProcessMemory(hProcess, mem->address, x, mem->size, bytesWritten);
      Write(mem, &x, &bytesWritten);
      ;
      */
 /*
 
     DWORD threadID;
-    HANDLE remoteThread = CreateRemoteThread(hProcess, nullptr, 0, (LPTHREAD_START_ROUTINE) mem->AllocatedBaseAddress,
-                                             mem->AllocatedBaseAddress, 0, &threadID);
+    HANDLE remoteThread = CreateRemoteThread(hProcess, nullptr, 0, (LPTHREAD_START_ROUTINE) mem->address,
+                                             mem->address, 0, &threadID);
 
     if (remoteThread == nullptr) {
         auto err = GetLastError();

@@ -8,6 +8,8 @@
 
 #include "Injector.h"
 #include "CVehicle.h"
+#include "ASMBuffer.h"
+#include "Injector.h"
 
 class VC {
 private:
@@ -25,13 +27,17 @@ public:
 
     CVehicle* SpawnVehicle(int modelIndex);
 
+    ASMBuffer* createBuffer();
+
     void SetWeather(int weatherId);
+    void GetText(int a1, char a2);
 
     void GetVehicle(int vehicleId);
 
     int GetPlayerPointer();
 
     void BlowUpVehicle(int addr);
+    void BlowUpVehicle(CVehicle *vehicle);
     void AddMoney(int value);
     void Money(int value);
     int Money();

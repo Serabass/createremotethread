@@ -14,6 +14,8 @@ public:
 
     DEFAULT_PROP_H(float, Health)
     DEFAULT_PROP_H(float, Armor)
+
+    DEFAULT_PROP_H(int, LastControlledVehicle)
 };
 
 #endif //CREATEREMOTETHREAD_CPED_H
