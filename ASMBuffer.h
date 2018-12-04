@@ -8,6 +8,8 @@
 enum REGISTER {
     EAX,
     ECX,
+    EBX,
+    ESI,
 };
 
 class ASMBuffer : public Buffer {

@@ -35,6 +35,7 @@ public:
     void GetVehicle(int vehicleId);
 
     int GetPlayerPointer();
+    int GetPlayerPosition();
 
     void BlowUpVehicle(int addr);
     void BlowUpVehicle(CVehicle *vehicle);

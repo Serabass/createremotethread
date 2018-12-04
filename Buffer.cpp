@@ -11,7 +11,7 @@ Buffer *Buffer::int32(int value) {
     memcpy(&buf[0], &value, 4);
 
     for (uint8_t i : buf) {
-        buffer.push_back(i);
+        uInt8(i);
     }
 
     return this;
@@ -21,4 +21,9 @@ Buffer *Buffer::uInt8(uint8_t value) {
     buffer.push_back(value);
 
     return this;
+}
+
+Buffer *Buffer::allocInfo(AllocationInfo * allocationInfo)
+{
+    return int32((int) allocationInfo->address);
 }

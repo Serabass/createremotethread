@@ -22,11 +22,14 @@ ASMBuffer *ASMBuffer::push(uint8_t value) {
 ASMBuffer *ASMBuffer::push(REGISTER aRegister) {
     switch (aRegister) {
         case REGISTER::EAX:
-            uInt8(0x50);         // push eax
-            break;
+            return (ASMBuffer *) uInt8(0x50);         // push eax
+        case REGISTER::EBX:
+            return (ASMBuffer *) uInt8(0x53);         // push ebx
+        case REGISTER::ESI:
+            return (ASMBuffer *) uInt8(0x56);         // push esi
+        default:
+            throw "Unknown register";
     }
-
-    return this;
 }
 
 ASMBuffer *ASMBuffer::relativeCall(int address) {
@@ -35,11 +38,10 @@ ASMBuffer *ASMBuffer::relativeCall(int address) {
     rc->fnAddress = address;
     relativeCalls.push_back(*rc);
 
-    return (ASMBuffer *)uInt8(0xE8)->int32(0x00000000);
+    return (ASMBuffer *) uInt8(0xE8)->int32(0x00000000);
 }
 
-ASMBuffer *ASMBuffer::pop(REGISTER aRegister)
-{
+ASMBuffer *ASMBuffer::pop(REGISTER aRegister) {
     switch (aRegister) {
         case REGISTER::ECX:
             uInt8(0x59);
@@ -49,8 +51,7 @@ ASMBuffer *ASMBuffer::pop(REGISTER aRegister)
     return this;
 }
 
-ASMBuffer *ASMBuffer::mov(REGISTER aRegister, int value)
-{
+ASMBuffer *ASMBuffer::mov(REGISTER aRegister, int value) {
     switch (aRegister) {
         case REGISTER::EAX:
             uInt8(0xB8)->int32(value);
@@ -63,9 +64,8 @@ ASMBuffer *ASMBuffer::mov(REGISTER aRegister, int value)
     return this;
 }
 
-ASMBuffer *ASMBuffer::ret()
-{
-    return (ASMBuffer *)uInt8(0xC3);
+ASMBuffer *ASMBuffer::ret() {
+    return (ASMBuffer *) uInt8(0xC3);
 }
 
 void ASMBuffer::inject() {

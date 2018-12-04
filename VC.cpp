@@ -20,9 +20,10 @@ VC *VC::Instance() {
 }
 
 void VC::Open() {
-    injector->Open(PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION |
-                   PROCESS_VM_READ | PROCESS_VM_WRITE |
-                   PROCESS_VM_OPERATION);
+    DWORD flags = PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION |
+                PROCESS_VM_READ | PROCESS_VM_WRITE |
+                PROCESS_VM_OPERATION;
+    injector->Open(flags);
 }
 
 ASMBuffer *VC::createBuffer() {
@@ -31,7 +32,7 @@ ASMBuffer *VC::createBuffer() {
 
 CVehicle *VC::SpawnVehicle(int modelIndex) {
     int spawnVehicleFn = 0x4AE8F0;
-    AllocationInfo *resultAlloc = injector->Alloc(4);
+    AllocationInfo *resultAlloc = injector->Alloc(sizeof(int));
     auto result = (int) resultAlloc->address;
 
     auto buffer = createBuffer();
@@ -87,7 +88,7 @@ void VC::GetText(int a1, char a2) {
 void VC::GetVehicle(int vehicleId) {
     int vehiclePool = 0xA0FDE4;
     int getVehicleFn = 0x451C70;
-    AllocationInfo *ret = injector->Alloc(4);
+    AllocationInfo *ret = injector->Alloc(sizeof(int));
 
     auto buffer = createBuffer();
     buffer->mov(REGISTER::EAX, vehicleId);                                     // mov    eax, vehicleId
@@ -95,7 +96,7 @@ void VC::GetVehicle(int vehicleId) {
     buffer->push(REGISTER::EAX);                                               // push   eax
     buffer->relativeCall(getVehicleFn);                                        // call   FN
     buffer->pop(REGISTER::ECX);                                                // pop    ecx
-    buffer->uInt8(0x89)->uInt8(0x0D)->int32((int) ret->address);               // mov    DWORD PTR ds:retAddr,ecx
+    buffer->uInt8(0x89)->uInt8(0x0D)->allocInfo(ret);                          // mov    DWORD PTR ds:retAddr,ecx
     buffer->ret();                                                             // ret
     buffer->inject();
 
@@ -106,11 +107,39 @@ void VC::GetVehicle(int vehicleId) {
 
 int VC::GetPlayerPointer() {
     int getPlayerFn = 0x4BC120;
-    AllocationInfo *ret = injector->Alloc(4);
+    AllocationInfo *ret = injector->Alloc(sizeof(int));
 
     auto buffer = createBuffer();
     buffer->relativeCall(getPlayerFn);
     buffer->uInt8(0xA3)->int32((int) ret->address);
+    buffer->ret();
+    buffer->inject();
+
+    int result;
+    SIZE_T b = injector->Read(ret, &result);
+    injector->Free(ret);
+    return result;
+}
+
+int VC::GetPlayerPosition() {
+    int getPosFn = 0x4BC0A0;
+    int currentPlayerIndex = 0xA10AFB;
+    AllocationInfo *ret = injector->Alloc(sizeof(float) * 3);
+
+    auto buffer = createBuffer();
+    buffer->uInt8(0x0F)->uInt8(0xB6)->uInt8(0x05)->int32(currentPlayerIndex);   // movzx   eax, ds:currentPlayerIndex
+    buffer->push(REGISTER::EBX);                                                // push    ebx
+    buffer->push(REGISTER::ESI);                                                // push    esi
+    buffer->uInt8(0x83)->uInt8(0xEC)->uInt8(0x30);                              // sub     esp, 30h
+    buffer->push(REGISTER::EAX);                                                // push    eax
+    buffer->relativeCall(getPosFn);                                             // call Fn
+    buffer->uInt8(0xD9)->uInt8(0xEE);                                           // fldz
+    buffer->uInt8(0xD9)->uInt8(0xEE);                                           // fldz
+    buffer->uInt8(0xD9)->uInt8(0x00);                                           // fld     dword ptr [eax]
+    buffer->uInt8(0xD8)->uInt8(0x66)->uInt8(0x04);                              // fsub    dword ptr [esi+4]
+    buffer->uInt8(0x30)->uInt8(0xDB);                                           // xor     bl, bl
+    buffer->pop(REGISTER::ECX);                                                 // pop    ecx
+    buffer->uInt8(0x89)->uInt8(0x0D)->allocInfo(ret);                           // mov    DWORD PTR ds:retAddr,ecx
     buffer->ret();
     buffer->inject();
 

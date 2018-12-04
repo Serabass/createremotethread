@@ -25,6 +25,7 @@ public:
 
     Buffer* int32(int value);
 
+    Buffer* allocInfo(AllocationInfo* allocationInfo);
 };
 
 #endif //CREATEREMOTETHREAD_BUFFER_H
